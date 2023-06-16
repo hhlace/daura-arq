@@ -9,22 +9,20 @@ import { dauraCategories } from "../../constants/dauraCategorires";
 import { PROJECTS } from "../../constants/projects";
 import "./proyectos.css";
 import { changeDocTitle } from "../../hooks/hooks";
+import axios, { AxiosHeaders } from "axios";
 
 const Proyectos = ({ setLogoColor }) => {
   const { t } = useTranslation("global");
   const categories = new Categories(dauraCategories);
   const projects = new Projects(PROJECTS);
   const [selectedCategory, setSelectedCategory] = useState(categories.getCategory("all"));
+  const [displayProjects, setDisplayProjects] = useState(null);
   const selectedProjects = projects.getCategoryProjects(selectedCategory.category);
   const location = useLocation();
   const categorySelected = location?.state;
 
 
   const pathLocation = t('navbar.proyectos')
-  useEffect(() => {
-    changeDocTitle(pathLocation)
-  }, [location, pathLocation])
-
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -41,7 +39,17 @@ const Proyectos = ({ setLogoColor }) => {
     setLogoColor(cat?.categoryColor);
   }
 
+  const getProjects = async () => {
+    const { data } = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/proyectos?fields[0]=nombre&populate[1]=imagenes`, { "Access-Control-Allow-Origin": "*" });
+    console.log("🚀🚀 \n ---> file: Proyectos.jsx:45 ---> data:", data)
+  }
+
   useEffect(() => {
+    changeDocTitle(pathLocation)
+  }, [location, pathLocation])
+
+  useEffect(() => {
+    getProjects();
     if (categorySelected) {
       setSelectedCategory(categorySelected);
       return setLogoColor(categorySelected?.categoryColor)
