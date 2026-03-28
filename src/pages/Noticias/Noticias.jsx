@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './noticias.css';
-import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
+
 import { motion } from 'framer-motion';
 
 import { useTranslation } from 'react-i18next';
@@ -57,6 +57,9 @@ function Noticias() {
                 <h6 className="title" style={{ marginBottom: '30px' }}>
                   {t('footer.noticias').toUpperCase()}
                 </h6>
+                <h6 className="title" style={{ marginBottom: '30px' }}>
+                  {t('noticias.wip')}
+                </h6>
 
                 {news?.map((n, index) => (
                   <div className="noticia" key={n?.id}>
@@ -67,10 +70,10 @@ function Noticias() {
                         className="img-fluid"
                       />
                     </div>
-                    <p>{shortDate(n?.attributes?.createdAt)}</p>
-                    <a href={n?.attributes?.link} target="_blank" rel="noreferrer" style={{ color: 'inherit', cursor: 'pointer' }}><h4>{n?.attributes?.Titulo}</h4></a>
-                    <span className="general-text"><ReactMarkdown>{n?.attributes?.descripcion}</ReactMarkdown></span>
-                    <span
+                    <small>{shortDate(n?.attributes?.createdAt)}</small>
+                    <h4>{n?.attributes?.Titulo}</h4>
+                    <p className="general-text">{n?.attributes?.descripcion}</p>
+                    <p
                       className="general-text"
                       style={{
                         opacity: visibleIndexes.includes(index) ? 1 : 0,
@@ -80,10 +83,8 @@ function Noticias() {
                         transition: 'opacity 1s ease',
                       }}
                     >
-                      <ReactMarkdown>
-                        {n?.attributes?.contenido}
-                      </ReactMarkdown>
-                    </span>
+                      {n?.attributes?.contenido}
+                    </p>
                     <span>
                       <button
                         type="button"

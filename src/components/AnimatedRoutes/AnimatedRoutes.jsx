@@ -10,7 +10,6 @@ import Noticias from '../../pages/Noticias/Noticias';
 import ProyectoAbierto from '../../pages/ProyectoAbierto/ProyectoAbierto';
 import Proyectos from '../../pages/Proyectos/Proyectos';
 import { axiosInstance } from '../../services/axiosInstance';
-import NotFound from '../../pages/404/NotFound';
 
 function AnimatedRoutes({ setLogoColor }) {
   const { i18n } = useTranslation();

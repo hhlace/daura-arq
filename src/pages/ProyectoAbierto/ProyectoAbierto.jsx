@@ -28,9 +28,7 @@ function ProyectoAbierto({ setLogoColor, categories }) {
   };
 
   const getProject = async () => {
-    const { data } = await axiosInstance().get(
-      `/proyectos/${projectId}?populate[imagenes][fields][0]=url&populate[imagenPrincipal][fields][0]=url&populate[categoria]=nombre&populate[imagenes][fields][0]=ext`,
-    );
+    const { data } = await axiosInstance().get(`/proyectos/${projectId}?populate[imagenes][fields][0]=url&populate[imagenPrincipal][fields][0]=url&populate[categoria]=nombre`);
     if (data.attributes) setProject(new Project(data));
   };
   useEffect(() => {
@@ -41,33 +39,6 @@ function ProyectoAbierto({ setLogoColor, categories }) {
   useEffect(() => {
     setLogoColor(selectedCategory?.categoryColor);
   }, [selectedCategory]);
-
-  const getMedia = (arr) => arr.map((el) => {
-    if (el?.attributes?.ext === '.mov') {
-      return (
-        <video
-          src={el?.attributes?.url}
-          autoPlay
-          muted
-          loop
-          style={{
-            objectFit: 'cover',
-            width: '100%',
-            height: '100%',
-          }}
-          key={el?.attributes?.url}
-        />
-      );
-    }
-    return (
-      <img
-        key={el?.attributes?.url}
-        src={el?.attributes?.url}
-        alt="fotos proyecto"
-        className="open-thumb img-fluid"
-      />
-    );
-  });
 
   return (
     <motion.div
@@ -126,34 +97,29 @@ function ProyectoAbierto({ setLogoColor, categories }) {
                 </button>
                 {showInfo && (
                   <div className="project-description">
-                    <ReactMarkdown className="general-text">
-                      {project.description}
-                    </ReactMarkdown>
+                    <ReactMarkdown className="general-text">{project.description}</ReactMarkdown>
                     <div className="project-description-info">
                       <ul className="project-list">
+
                         {project.surface && (
                           <li className="project-link">
                             <span>
                               {t('proyecto-abierto.superficie')}
                               :
                             </span>
-                            <span>
-                              {t('Projects.Surface', {
-                                surfaceMts: project?.surface,
-                              })}
-                            </span>
+                            <span>{t('Projects.Surface', { surfaceMts: project?.surface })}</span>
                           </li>
                         )}
 
-                        {project.team && (
+                        {(project.team && project.team.length > 0) && (
                           <li className="project-link">
                             <span>
                               {t('proyecto-abierto.equipo')}
                               :
                             </span>
                             <div className="double">
-                              {project.team.split(',').map((nombre) => (
-                                <div key={nombre}>{nombre}</div>
+                              {project.team.map((nombre) => (
+                                <span key={nombre}>{nombre}</span>
                               ))}
                             </div>
                           </li>
@@ -161,45 +127,33 @@ function ProyectoAbierto({ setLogoColor, categories }) {
                         {project.colaboradores && (
                           <li className="project-link">
                             <span>
-                              {t('proyecto-abierto.colaboradores')}
+                              {t(
+                                'proyecto-abierto.colaboradores',
+                              )}
                               :
                             </span>
                             <div className="double">
-                              {project.colaboradores
-                                .split(',')
-                                .map((colaborador) => (
-                                  <div key={colaborador}>{colaborador}</div>
-                                ))}
+                              <span>{project.colaboradores}</span>
                             </div>
                           </li>
                         )}
 
-                        {project.photographer && (
+                        {project.photographer ? (
                           <li className="project-link">
                             <span>
                               {t('proyecto-abierto.fotografia')}
                               :
                             </span>
-                            <div className="double">
-                              {project.photographer
-                                .split(',')
-                                .map((photographer) => (
-                                  <div key={photographer}>{photographer}</div>
-                                ))}
-                            </div>
+                            <span>{project.photographer}</span>
                           </li>
-                        )}
-                        {project.promoter && (
+                        ) : null}
+                        {project.promoter ? (
                           <li className="project-link">
                             <span>
                               {t('proyecto-abierto.promotor')}
                               :
                             </span>
-                            <div className="double">
-                              {project.promoter.split(',').map((promoter) => (
-                                <div key={promoter}>{promoter}</div>
-                              ))}
-                            </div>
+                            <span>{project.promoter}</span>
                           </li>
                         )}
                       </ul>
@@ -219,7 +173,14 @@ function ProyectoAbierto({ setLogoColor, categories }) {
                   />
                 </div>
                 <div className="images-section">
-                  {project?.images?.data && getMedia(project?.images?.data)}
+                  {project?.images?.data.map((img) => (
+                    <img
+                      key={img?.attributes?.url}
+                      src={img?.attributes?.url}
+                      alt="fotos proyecto"
+                      className="open-thumb img-fluid"
+                    />
+                  ))}
                 </div>
               </div>
             </div>

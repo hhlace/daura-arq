@@ -119,15 +119,17 @@ function Estudio() {
                 <div className={s.equipoProfile}>
                   {team?.map((member) => (
                     <div
-                      className={s.profile}
+                      className={
+                        member?.attributes?.imagen?.data?.attributes?.url
+                      }
                       key={member}
                     >
                       <img
-                        src={member?.attributes?.imagen?.data?.attributes?.url}
-                        alt={member?.attributes?.Nombre}
+                        src={member.image}
+                        alt={member.name}
                         className={`img-fluid img-team ${s.mobileFullWidth}`}
                       />
-                      <p>{member?.attributes?.Nombre}</p>
+                      <p>{member?.Nombre}</p>
                     </div>
                   ))}
                 </div>
