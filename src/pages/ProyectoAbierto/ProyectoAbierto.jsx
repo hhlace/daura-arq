@@ -155,7 +155,7 @@ function ProyectoAbierto({ setLogoColor, categories }) {
                             </span>
                             <span>{project.promoter}</span>
                           </li>
-                        ) : null}
+                        )}
                       </ul>
                     </div>
                   </div>
@@ -169,6 +169,7 @@ function ProyectoAbierto({ setLogoColor, categories }) {
                     src={project.mainImage}
                     alt={project.title}
                     className="img-fluid"
+                    style={{ objectFit: 'cover' }}
                   />
                 </div>
                 <div className="images-section">

@@ -41,6 +41,7 @@ function AnimatedRoutes({ setLogoColor }) {
         />
         <Route path="/estudio" element={<Estudio />} />
         <Route path="/noticias" element={<Noticias />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </AnimatePresence>
   );
