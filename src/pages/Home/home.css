@@ -35,6 +35,18 @@
     filter: invert(100%);
 }
 
+.hero-video-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-video {
+  object-fit: cover;
+  width: 1110px;
+  height: 550px;
+}
+
 
 @media (max-width: 768px) { 
 
@@ -53,5 +65,10 @@
     gap: 30px;
     justify-content: center;
     align-items: center;
+  }
+
+  .hero-video {
+    width: 100%;
+    height: auto;
   }
 }
