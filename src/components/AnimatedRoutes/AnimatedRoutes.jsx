@@ -9,6 +9,7 @@ import Home from '../../pages/Home/Home';
 import Noticias from '../../pages/Noticias/Noticias';
 import ProyectoAbierto from '../../pages/ProyectoAbierto/ProyectoAbierto';
 import Proyectos from '../../pages/Proyectos/Proyectos';
+import NotFound from '../../pages/404/NotFound';
 import { axiosInstance } from '../../services/axiosInstance';
 
 function AnimatedRoutes({ setLogoColor }) {
