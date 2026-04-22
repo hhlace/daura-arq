@@ -119,17 +119,17 @@ function Estudio() {
                 <div className={s.equipoProfile}>
                   {team?.map((member) => (
                     <div
-                      className={
-                        member?.attributes?.imagen?.data?.attributes?.url
-                      }
-                      key={member}
+                      className={s.equipoMember}
+                      key={member.id}
                     >
-                      <img
-                        src={member.image}
-                        alt={member.name}
-                        className={`img-fluid img-team ${s.mobileFullWidth}`}
-                      />
-                      <p>{member?.Nombre}</p>
+                      {member?.attributes?.imagen?.data?.attributes?.url && (
+                        <img
+                          src={member.attributes.imagen.data.attributes.url}
+                          alt={member.attributes?.Nombre || ''}
+                          className={`img-fluid img-team ${s.mobileFullWidth}`}
+                        />
+                      )}
+                      <p>{member?.attributes?.Nombre}</p>
                     </div>
                   ))}
                 </div>
