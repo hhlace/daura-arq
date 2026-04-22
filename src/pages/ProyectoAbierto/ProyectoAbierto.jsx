@@ -155,7 +155,7 @@ function ProyectoAbierto({ setLogoColor, categories }) {
                             </span>
                             <span>{project.promoter}</span>
                           </li>
-                        )}
+                        ) : null}
                       </ul>
                     </div>
                   </div>
