@@ -75,12 +75,24 @@
 }
 
 .equipoProfile {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  justify-content: space-between;
-  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
   margin: 40px 0;
+}
+
+.equipoMember {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+}
+
+.equipoMember img {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
 }
 
 .profile {
@@ -90,6 +102,12 @@
   align-items: center;
   gap: 8px;
   width: 20vw;
+}
+
+@media screen and (max-width: 1200px) {
+  .equipoProfile {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @media screen and (max-width: 990px) {
@@ -121,6 +139,10 @@
   }
 }
 @media (max-width: 650px) {
+  .equipoProfile {
+    grid-template-columns: 1fr;
+  }
+
   .profile {
     width: 100vw;
   }
@@ -128,6 +150,4 @@
   .profile p {
     font-size: 16px;
   }
-
- 
 }
