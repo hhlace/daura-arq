@@ -69,34 +69,8 @@ function Noticias() {
                     </div>
                     <small>{shortDate(n?.attributes?.createdAt)}</small>
                     <h4>{n?.attributes?.Titulo}</h4>
-                    <p className="general-text">{n?.attributes?.descripcion}</p>
-                    <p
-                      className="general-text"
-                      style={{
-                        opacity: visibleIndexes.includes(index) ? 1 : 0,
-                        display: visibleIndexes.includes(index)
-                          ? 'block'
-                          : 'none',
-                        transition: 'opacity 1s ease',
-                      }}
-                    >
-                      {n?.attributes?.contenido}
-                    </p>
-                    <span>
-                      <button
-                        type="button"
-                        onClick={() => toggleContent(index)}
-                        style={{
-                          border: 'none',
-                          outline: 'none',
-                          textDecoration: 'underline',
-                        }}
-                      >
-                        {visibleIndexes.includes(index) ? 'OCULTAR' : 'LEE MAS'}
-                      </button>
-                    </span>
-                    {n?.attributes?.link && (
-                      <div style={{ marginTop: '10px' }}>
+                    {n?.attributes?.link && n.attributes.link !== 'https://' && n.attributes.link.length > 8 && (
+                      <div style={{ marginBottom: '8px' }}>
                         <a
                           href={n.attributes.link}
                           target="_blank"
@@ -128,6 +102,32 @@ function Noticias() {
                         </a>
                       </div>
                     )}
+                    <p className="general-text">{n?.attributes?.descripcion}</p>
+                    <p
+                      className="general-text"
+                      style={{
+                        opacity: visibleIndexes.includes(index) ? 1 : 0,
+                        display: visibleIndexes.includes(index)
+                          ? 'block'
+                          : 'none',
+                        transition: 'opacity 1s ease',
+                      }}
+                    >
+                      {n?.attributes?.contenido}
+                    </p>
+                    <span>
+                      <button
+                        type="button"
+                        onClick={() => toggleContent(index)}
+                        style={{
+                          border: 'none',
+                          outline: 'none',
+                          textDecoration: 'underline',
+                        }}
+                      >
+                        {visibleIndexes.includes(index) ? 'OCULTAR' : 'LEE MAS'}
+                      </button>
+                    </span>
                     <hr />
                   </div>
                 ))}
