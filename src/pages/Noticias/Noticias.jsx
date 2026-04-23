@@ -57,9 +57,6 @@ function Noticias() {
                 <h6 className="title" style={{ marginBottom: '30px' }}>
                   {t('footer.noticias').toUpperCase()}
                 </h6>
-                <h6 className="title" style={{ marginBottom: '30px' }}>
-                  {t('noticias.wip')}
-                </h6>
 
                 {news?.map((n, index) => (
                   <div className="noticia" key={n?.id}>
