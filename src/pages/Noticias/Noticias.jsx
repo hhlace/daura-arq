@@ -95,6 +95,24 @@ function Noticias() {
                         {visibleIndexes.includes(index) ? 'OCULTAR' : 'LEE MAS'}
                       </button>
                     </span>
+                    {n?.attributes?.link && (
+                      <div style={{ marginTop: '10px' }}>
+                        <a
+                          href={n.attributes.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          style={{
+                            textDecoration: 'underline',
+                            color: 'inherit',
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '5px',
+                          }}
+                        >
+                          🔗 Ver la noticia
+                        </a>
+                      </div>
+                    )}
                     <hr />
                   </div>
                 ))}
