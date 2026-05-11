@@ -12,7 +12,7 @@ import { axiosInstance } from '../../services/axiosInstance';
 
 function Proyectos({ setLogoColor, categories }) {
   const { t, i18n } = useTranslation('global');
-  const [projects, setProjects] = useState({});
+  const [projects, setProjects] = useState(new Projects([]));
   const [selectedCategory, setSelectedCategory] = useState({});
   const [selectedProjects, setSelectedProjects] = useState([]);
   const location = useLocation();
@@ -20,7 +20,7 @@ function Proyectos({ setLogoColor, categories }) {
   const locale = i18n?.language;
 
   const getProjects = async () => {
-    const query = `/proyectos?fields[0]=nombre&fields[1]=referencia&fields[2]=orden&populate[imagenPrincipal][fields][0]=url&populate[categoria][fields]=nombre&locale=${locale}`;
+    const query = `/proyectos?fields[0]=nombre&fields[1]=referencia&fields[2]=orden&populate[imagenPrincipal][fields][0]=url&populate[categoria][fields]=nombre&sort[0]=orden:asc&pagination[pageSize]=100&locale=${locale}`;
     const { data } = await axiosInstance().get(query);
     if (data) setProjects(new Projects(data));
   };
@@ -57,15 +57,20 @@ function Proyectos({ setLogoColor, categories }) {
   };
 
   useEffect(() => {
+    getProjects();
+  }, [locale]);
+
+  useEffect(() => {
+    if (categories.length <= 0) return;
+
     if (categorySelected) {
-      setSelectedCategory(categorySelected);
-      setLogoColor(categorySelected?.categoryColor);
+      const category = categories.getCategory(categorySelected?.category) || categorySelected;
+      setSelectedCategory(category);
+      setLogoColor(category?.categoryColor);
     } else {
       setSelectedCategory(categories.getCategory('all'));
     }
-    // getCategories();
-    getProjects();
-  }, []);
+  }, [categories, categorySelected, setLogoColor]);
 
   /* useEffect(() => {
     if (categories.length > 0) setSelectedCategory(categories.getCategory('all'));
