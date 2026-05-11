@@ -19,7 +19,7 @@ function AnimatedRoutes({ setLogoColor }) {
   const locale = i18n?.language;
 
   const getCategories = async () => {
-    const query = `/categorias?fields[0]=nombre&fields[1]=color&fields[2]=colorLetra&locale=${locale}`;
+    const query = `/categorias?fields[0]=nombre&fields[1]=color&fields[2]=colorLetra&pagination[pageSize]=100&locale=${locale}`;
     const { data } = await axiosInstance().get(query);
     if (data) setCategories(new Categories(data));
   };
